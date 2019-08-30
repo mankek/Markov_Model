@@ -49,7 +49,6 @@ class MarkovModel:
     # defining how big the window of follow tokens are (inclusive)
     def make_window(text_in):
         print("Finding text windows...")
-        # making window
         window_dict = dict()
         for win_index, word in enumerate(text_in):
             words_after = text_in[win_index + 1: win_index + 2]
@@ -69,7 +68,6 @@ class MarkovModel:
         text_in = self.starts_ends(text_in)
         text_in, keys = self.process_text(text_in)
         text_windows = self.make_window(text_in)
-        # text_probs = self.get_prob_dict(text_windows)
         new_word = self.first_word
         new_text = "\n" + new_word + " "
         print("Finding words...")
@@ -105,12 +103,10 @@ class MarkovModelLetter:
     def process_letters(text_in):
         print("processing text...")
         list_out = []
-        while "- " in text_in:
-            text_in = text_in.replace("- ", "")
-        text_in = text_in.replace("-", ' ')
-        remove_characters = [",", ";", ":", '\"', "_", "”", "“", ")", "(", ".", "?", "!", "/"]
+        remove_characters = [",", ";", ":", '\"', "_", "”", "“", ")", "(", ".", "?", "!", "/", "- "]
         for i in remove_characters:
             text_in = text_in.replace(i, "")
+        text_in = text_in.replace("-", ' ')
         text_in = text_in + ' '
         for letter in text_in:
             list_out.append(letter.lower())
